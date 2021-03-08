@@ -8,13 +8,12 @@ using CRUD.Data.Interfaces;
 using CRUD.Services;
 using CRUD.Services.Interfaces;
 
-namespace CRUD.Api.Configuration
+namespace CRUD.Web.Configuration
 {
     public static class DependencyInjectionSetup
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
 

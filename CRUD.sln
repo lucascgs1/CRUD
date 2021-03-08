@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUD.Model", "CRUD.Model\CR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUD.Services", "CRUD.Services\CRUD.Services.csproj", "{CF62AE02-B3EF-4E3B-AB93-E424B73B89BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRUD.Web", "CRUD.Web\CRUD.Web.csproj", "{5F976DD3-F33F-4B4C-9948-CD9D65DB1521}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRUD.Web", "CRUD.Web\CRUD.Web.csproj", "{5F976DD3-F33F-4B4C-9948-CD9D65DB1521}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -16,9 +16,27 @@ namespace CRUD.Services
             UsuarioRepository = usuarioRepository;
         }
 
+        public IEnumerable<Usuario> GetAllUsuario()
+        {
+            return UsuarioRepository.GetAll();
+        }
+
         public Usuario GetUsuarioById(int id)
         {
             return UsuarioRepository.GetById(id);
+        }
+
+        public void SalvarUsuario(Usuario usuario)
+        {
+            if (usuario.Id > 0)
+                UsuarioRepository.Update(usuario);
+            else
+                UsuarioRepository.Add(usuario);
+        }
+
+        public void DeleteUsuarioById(int id)
+        {
+            UsuarioRepository.Remove(id);
         }
     }
 }

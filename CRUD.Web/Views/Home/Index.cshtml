@@ -1,8 +1,82 @@
-﻿@{
-    ViewData["Title"] = "Home";
-}
+﻿@model CRUD.Web.Models.IndexViewModel
 
-<div class="text-center">
-    <h1 class="display-4">teste</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4>Usuario</h4>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-3 offset-md-9 mb-2">
+            @Html.ActionLink("Novo", "Cadastro", "Home", new { }, new { @class = "btn btn-primary btn-block" })
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row pb-2 pt-2 header-grid">
+            <div class="col-1">
+                <span>
+                    @Html.DisplayNameFor(model => model.LstUsuario[0].Id)
+                </span>
+            </div>
+            <div class="col-4">
+                <span>
+                    @Html.DisplayNameFor(model => model.LstUsuario[0].Nome)
+                </span>
+            </div>
+            <div class="col-4">
+                <span>
+                    @Html.DisplayNameFor(model => model.LstUsuario[0].Email)
+                </span>
+            </div>
+            <div class="col-3">
+                <span>
+                    @Html.DisplayNameFor(model => model.LstUsuario[0].Telefone)
+                </span>
+            </div>
+        </div>
+
+        @foreach (var item in Model.LstUsuario)
+        {
+            if (Model.LstUsuario.IndexOf(item) % 2 == 0)
+            {
+                <a class="row pt-1 pb-2 body-grid impar" href="@Url.ActionLink("Cadastro","Home",new {id = item.Id })">
+                    <div class="col-1">
+                        <span>@item.Id</span>
+                    </div>
+                    <div class="col-4">
+                        <span>@item.Nome</span>
+                    </div>
+                    <div class="col-4">
+                        <span>@item.Email</span>
+                    </div>
+                    <div class="col-3">
+                        <span>@item.Telefone</span>
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a class="row pt-1 pb-2 body-grid" href="@Url.ActionLink("Cadastro","Home",new {id = item.Id })">
+                    <div class="col-1">
+                        <span>@item.Id</span>
+                    </div>
+                    <div class="col-4">
+                        <span>@item.Nome</span>
+                    </div>
+                    <div class="col-4">
+                        <span>@item.Email</span>
+                    </div>
+                    <div class="col-3">
+                        <span>@item.Telefone</span>
+                    </div>
+                </a>
+            }
+        }
+    </div>
 </div>
