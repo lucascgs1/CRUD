@@ -5,8 +5,7 @@ using System.Text;
 
 namespace CRUD.Data.Interfaces
 {
-    public interface IUsuarioRepository : IRepository<Usuario>
+    public interface IClienteRepository : IRepository<Cliente>
     {
-        Usuario GetUsuarioById(int id);
     }
 }

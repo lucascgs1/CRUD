@@ -27,18 +27,39 @@ namespace CRUD.Api.Controllers
         /// <summary>
         /// obtem todos os usuarios cadastrados
         /// </summary>
-        /// <param name="UsuarioServices"></param>
+        /// <param name="usuarioServices"></param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Get([FromServices] IUsuarioServices UsuarioServices)
+        public ActionResult Get([FromServices] IUsuarioServices usuarioServices, [FromQuery] int id)
         {
             try
             {
-                var usuarios = UsuarioServices.GetUsuarioById(1);
+                var usuarios = usuarioServices.GetUsuarioById(id);
 
-                //var usuarios = new List<Usuario> ();
+                return Ok(usuarios);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return Problem(ex.Message);
+            }
+        }
+         
+        /// <summary>
+        /// obtem todos os usuarios cadastrados
+        /// </summary>
+        /// <param name="usuarioServices"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult GetAllUsuario([FromServices] IUsuarioServices usuarioServices)
+        {
+            try
+            {
+                var usuarios = usuarioServices.GetAllUsuario();
 
                 return Ok(usuarios);
             }
@@ -50,20 +71,64 @@ namespace CRUD.Api.Controllers
         }
 
         /// <summary>
-        /// adicionar novo usuario
+        /// Salva um novo Usuario
         /// </summary>
-        /// <param name="UsuarioServices">servico de usuario</param>
-        /// <param name="Usuario">objeto recebido no corpo da requisicao</param>
+        /// <param name="usuarioServices">servico do usuario</param>
+        /// <param name="usuario">Dados do usuario</param>
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Put([FromServices] IUsuarioServices UsuarioServices, [FromBody] Usuario Usuario)
+        public ActionResult Put([FromServices] IUsuarioServices usuarioServices, [FromBody] Usuario usuario)
         {
             try
             {
-                //UsuarioServices.insert(Usuario);
+                usuarioServices.SalvarUsuario(usuario);
 
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return Problem(ex.Message);
+            }
+        }
 
+        /// <summary>
+        /// Salvar ou atualizar um usuario
+        /// </summary>
+        /// <param name="usuarioServices">servico de usuario</param>
+        /// <param name="usuario">Dados do usuario</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult Post([FromServices] IUsuarioServices usuarioServices, [FromBody] Usuario usuario)
+        {
+            try
+            {
+                usuarioServices.SalvarUsuario(usuario);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return Problem(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deleta um usuario
+        /// </summary>
+        /// <param name="usuarioServices">Servico de usuario</param>
+        /// <param name="id">codigo do usuario</param>
+        /// <returns></returns>
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult Delete([FromServices] IUsuarioServices usuarioServices, [FromQuery] int id)
+        {
+            try
+            {
+                usuarioServices.DeleteUsuarioById(id);
 
                 return Ok();
             }

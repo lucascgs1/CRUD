@@ -34,6 +34,11 @@ namespace CRUD.Services
             return EnderecoRepository.GetAll();
         }
 
+        //public IEnumerable<Endereco> GetAllEnderecoByUserId(int userId)
+        //{
+        //    return EnderecoRepository.GetAllEnderecosByUserId(userId);
+        //}
+
         public void DeleteEnderecoById(int id)
         {
             EnderecoRepository.Remove(id);

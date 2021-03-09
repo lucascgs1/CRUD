@@ -10,18 +10,13 @@ using System.Collections.Generic;
 
 namespace CRUD.Data
 {
-    public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
+    public class ClienteRepository : Repository<Cliente>, IClienteRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public UsuarioRepository(ApplicationDbContext context) : base(context)
+        public ClienteRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
-        }
-
-        public Usuario GetUsuarioById(int id)
-        {
-            return DbSet.AsNoTracking().Include(e => e.Enderecos).FirstOrDefault(x => x.Id == id);
         }
     }
 }

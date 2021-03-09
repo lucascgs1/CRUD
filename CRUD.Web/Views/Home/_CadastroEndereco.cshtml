@@ -1,0 +1,63 @@
+﻿@*@model CRUD.Web.Models.CadastroEnderecoViewModel*@
+@model CRUD.Web.Models.UsuarioDetalheViewModel
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            @using (Html.BeginForm("SalvarEndereco", "home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Endereço</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.HiddenFor(model => model.Endereco.Id)
+                    @Html.HiddenFor(model => model.Endereco.UsuarioId)
+
+                    <div class="row">
+                        <div class="col-12 col-md-6 form-group">
+                            @Html.LabelFor(model => model.Endereco.Titulo, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Endereco.Titulo, new { @class = "form-control" })
+                        </div>
+                        <div class="col-12 col-md-6 form-group">
+                            @Html.LabelFor(model => model.Endereco.Logradouro, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Endereco.Logradouro, new { @class = "form-control" })
+                        </div>
+                        <div class="col-12 col-md-6 form-group">
+                            @Html.LabelFor(model => model.Endereco.Numero, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Endereco.Numero, new { @class = "form-control" })
+                        </div>
+                        <div class="col-12 col-md-6 form-group">
+                            @Html.LabelFor(model => model.Endereco.Complemento, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Endereco.Complemento, new { @class = "form-control" })
+                        </div>
+                        <div class="col-12 col-md-6 form-group">
+                            @Html.LabelFor(model => model.Endereco.Bairro, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Endereco.Bairro, new { @class = "form-control" })
+                        </div>
+                        <div class="col-12 col-md-6 form-group">
+                            @Html.LabelFor(model => model.Endereco.Cidade, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Endereco.Cidade, new { @class = "form-control" })
+                        </div>
+                        <div class="col-12 col-md-6 form-group">
+                            @Html.LabelFor(model => model.Endereco.Estado, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Endereco.Estado, new { @class = "form-control" })
+                        </div>
+                        <div class="col-12 col-md-6 form-group">
+                            @Html.LabelFor(model => model.Endereco.EnderecoPrincipal, new { @class = "control-label" }): &nbsp;
+                            @Html.CheckBoxFor(model => model.Endereco.EnderecoPrincipal, new { @class = "" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -45,7 +45,7 @@
         {
             if (Model.LstUsuario.IndexOf(item) % 2 == 0)
             {
-                <a class="row pt-1 pb-2 body-grid impar" href="@Url.ActionLink("Cadastro","Home",new {id = item.Id })">
+                <a class="row pt-1 pb-2 body-grid impar" href="@Url.ActionLink("UsuarioDetalhe","Home",new {id = item.Id })">
                     <div class="col-1">
                         <span>@item.Id</span>
                     </div>
@@ -62,7 +62,7 @@
             }
             else
             {
-                <a class="row pt-1 pb-2 body-grid" href="@Url.ActionLink("Cadastro","Home",new {id = item.Id })">
+                <a class="row pt-1 pb-2 body-grid" href="@Url.ActionLink("UsuarioDetalhe","Home",new {id = item.Id })">
                     <div class="col-1">
                         <span>@item.Id</span>
                     </div>

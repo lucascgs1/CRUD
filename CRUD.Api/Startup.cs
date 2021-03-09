@@ -54,11 +54,14 @@ namespace CRUD.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
             else
             {
                 app.UseHsts();
             }
+            
+            app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
 
