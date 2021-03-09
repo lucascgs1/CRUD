@@ -20,6 +20,7 @@ namespace CRUD.Data
         }
 
 
+
         //public IEnumerable<Endereco> GetAllEnderecosByUserId(int id)
         //{
         //    return Db.Endereco.Where(e => e.UsuarioId == id).ToList();

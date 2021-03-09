@@ -19,12 +19,11 @@ namespace CRUD.Data
                 entity =>
                 {
                     entity.HasMany(s => s.Enderecos);
-                    entity.HasIndex(u => u.Email).IsUnique();
                 });
         }
 
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Endereco> Endereco { get; set; }
-        //public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
     }
 }

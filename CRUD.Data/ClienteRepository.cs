@@ -18,5 +18,28 @@ namespace CRUD.Data
         {
             _context = context;
         }
+
+        public Cliente GetById(long id)
+        {
+            return DbSet.Find(id);
+        }
+
+        public void Remove(long id)
+        {
+            DbSet.Remove(DbSet.Find(id));
+        }
+
+
+        public void Save(Cliente cliente)
+        {
+            if (cliente.Id > 0)
+            {
+                DbSet.Update(cliente);
+            }
+            else
+                DbSet.Add(cliente);
+
+            Db.SaveChanges();
+        }
     }
 }

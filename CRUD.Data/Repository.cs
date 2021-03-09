@@ -27,7 +27,7 @@ namespace CRUD.Data
         {
             return DbSet.Find(id);
         }
-
+        
         public TEntity FindFirstBy(Expression<Func<TEntity, bool>> predicate)
         {
             return DbSet.FirstOrDefault(predicate);
@@ -53,8 +53,8 @@ namespace CRUD.Data
         public virtual void Remove(int id)
         {
             DbSet.Remove(DbSet.Find(id));
-        }
-
+        }    
+        
         public int SaveChanges()
         {
             return Db.SaveChanges();

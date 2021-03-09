@@ -13,7 +13,7 @@ namespace CRUD.Model
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("Üsuario")]
+        [ForeignKey("Usuario")]
         public int UsuarioId { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é Obrigatório")]

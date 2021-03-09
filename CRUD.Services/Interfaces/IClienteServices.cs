@@ -7,11 +7,11 @@ namespace CRUD.Services.Interfaces
 {
     public interface IClienteServices
     {
-        Cliente GetClienteById(int id);
+        Cliente GetClienteById(long id);
 
         void SalvarCliente(Cliente cliente);
 
-        void DeleteClienteById(int id);
+        void DeleteClienteById(long id);
 
         IEnumerable<Cliente> GetAllCliente();
     }

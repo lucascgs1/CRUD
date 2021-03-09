@@ -1,67 +1,67 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CRUD.Api.Model;
+using CRUD.Model;
+using CRUD.Services;
+using CRUD.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CRUD.Model;
-using CRUD.Services.Interfaces;
-
-
 
 namespace CRUD.Api.Controllers
 {
-
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
-    public class UsuarioController : ControllerBase
+    public class ClienteController : ControllerBase
     {
-        private readonly ILogger<UsuarioController> _logger;
+        private readonly ILogger<ClienteController> _logger;
 
-        public UsuarioController(ILogger<UsuarioController> logger)
+        public ClienteController(ILogger<ClienteController> logger)
         {
             _logger = logger;
         }
 
         /// <summary>
-        /// obtem todos os usuarios cadastrados
+        /// Obtem um cliente pelo codigo
         /// </summary>
-        /// <param name="usuarioServices"></param>
-        /// <returns></returns>
+        /// <param name="clienteServices">servico de cliente</param>
+        /// <param name="id">codigo</param>
+        /// <returns>retorna os dados do cliente</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult Get([FromServices] IClienteServices clienteServices, long id)
+        {
+            try
+            {
+                var cliente = clienteServices.GetClienteById(id);
+
+                return Ok(cliente);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return Problem(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Obtem uma lista com todos os clientes cadastrados
+        /// </summary>
+        /// <param name="clienteServices">servico de cliente</param>
+        /// <returns>retorna uma lista de clientes</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Get([FromServices] IUsuarioServices usuarioServices, [FromQuery] int id)
+        public ActionResult GetAll([FromServices] IClienteServices clienteServices)
         {
             try
             {
-                var usuarios = usuarioServices.GetUsuarioById(id);
+                var cliente = clienteServices.GetAllCliente().ToList();
 
-                return Ok(usuarios);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                return Problem(ex.Message);
-            }
-        }
-         
-        /// <summary>
-        /// obtem todos os usuarios cadastrados
-        /// </summary>
-        /// <param name="usuarioServices"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetAllUsuario([FromServices] IUsuarioServices usuarioServices)
-        {
-            try
-            {
-                var usuarios = usuarioServices.GetAllUsuario();
-
-                return Ok(usuarios);
+                return Ok(cliente);
             }
             catch (Exception ex)
             {
@@ -70,42 +70,20 @@ namespace CRUD.Api.Controllers
             }
         }
 
-        /// <summary>
-        /// Salva um novo Usuario
-        /// </summary>
-        /// <param name="usuarioServices">servico do usuario</param>
-        /// <param name="usuario">Dados do usuario</param>
-        /// <returns></returns>
-        [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Put([FromServices] IUsuarioServices usuarioServices, [FromBody] Usuario usuario)
-        {
-            try
-            {
-                usuarioServices.SalvarUsuario(usuario);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                return Problem(ex.Message);
-            }
-        }
 
         /// <summary>
-        /// Salvar ou atualizar um usuario
+        /// Salvar ou atualizar um cliente Cliente
         /// </summary>
-        /// <param name="usuarioServices">servico de usuario</param>
-        /// <param name="usuario">Dados do usuario</param>
+        /// <param name="clienteServices">servico de cliente</param>
+        /// <param name="cliente">dados do cliente</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Post([FromServices] IUsuarioServices usuarioServices, [FromBody] Usuario usuario)
+        public ActionResult Post([FromServices] IClienteServices clienteServices, [FromBody] Cliente cliente)
         {
             try
             {
-                usuarioServices.SalvarUsuario(usuario);
+                clienteServices.SalvarCliente(cliente);
 
                 return Ok();
             }
@@ -117,18 +95,41 @@ namespace CRUD.Api.Controllers
         }
 
         /// <summary>
-        /// Deleta um usuario
+        /// Salvar novo cliente
         /// </summary>
-        /// <param name="usuarioServices">Servico de usuario</param>
-        /// <param name="id">codigo do usuario</param>
+        /// <param name="clienteServices">servico de cliente</param>
+        /// <param name="cliente">dados do cliente</param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Delete([FromServices] IUsuarioServices usuarioServices, [FromQuery] int id)
+        public ActionResult Put([FromServices] IClienteServices clienteServices, [FromBody] Cliente cliente)
         {
             try
             {
-                usuarioServices.DeleteUsuarioById(id);
+                clienteServices.SalvarCliente(cliente);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return Problem(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// excluir dados do cliente
+        /// </summary>
+        /// <param name="clienteServices">servico do cliente</param>
+        /// <param name="id">codigo do cliente</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult Delete([FromServices] IClienteServices clienteServices, int id)
+        {
+            try
+            {
+                clienteServices.DeleteClienteById(id);
 
                 return Ok();
             }

@@ -21,20 +21,17 @@ namespace CRUD.Services
             return ClienteRepository.GetAll();
         }
 
-        public Cliente GetClienteById(int id)
+        public Cliente GetClienteById(long id)
         {
             return ClienteRepository.GetById(id);
         }
 
         public void SalvarCliente(Cliente cliente)
         {
-            if (cliente.Id > 0)
-                ClienteRepository.Update(cliente);
-            else
-                ClienteRepository.Add(cliente);
+            ClienteRepository.Save(cliente);
         }
 
-        public void DeleteClienteById(int id)
+        public void DeleteClienteById(long id)
         {
             ClienteRepository.Remove(id);
         }
