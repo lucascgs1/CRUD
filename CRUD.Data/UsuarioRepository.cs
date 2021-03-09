@@ -23,5 +23,17 @@ namespace CRUD.Data
         {
             return DbSet.AsNoTracking().Include(e => e.Enderecos).FirstOrDefault(x => x.Id == id);
         }
+
+        public void Save(Usuario usuario)
+        {
+            if (usuario.Id > 0)
+            {
+                DbSet.Update(usuario);
+            }
+            else
+                DbSet.Add(usuario);
+
+            Db.SaveChanges();
+        }
     }
 }

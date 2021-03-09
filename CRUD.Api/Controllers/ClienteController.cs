@@ -1,14 +1,10 @@
-﻿using CRUD.Api.Model;
-using CRUD.Model;
-using CRUD.Services;
+﻿using CRUD.Model;
 using CRUD.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CRUD.Api.Controllers
 {

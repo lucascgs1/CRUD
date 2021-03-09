@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using CRUD.Model;
 using CRUD.Services.Interfaces;
 
@@ -13,8 +11,8 @@ using CRUD.Services.Interfaces;
 namespace CRUD.Api.Controllers
 {
 
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
         private readonly ILogger<UsuarioController> _logger;
@@ -25,14 +23,15 @@ namespace CRUD.Api.Controllers
         }
 
         /// <summary>
-        /// obtem todos os usuarios cadastrados
+        ///  Obtem os dados de um usuario
         /// </summary>
-        /// <param name="usuarioServices"></param>
-        /// <returns></returns>
-        [HttpGet]
+        /// <param name="usuarioServices">servico de usuario</param>
+        /// <param name="id">codigo do usuario</param>
+        /// <returns>dados do usuario</returns>
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Get([FromServices] IUsuarioServices usuarioServices, [FromQuery] int id)
+        public ActionResult Get([FromServices] IUsuarioServices usuarioServices, int id)
         {
             try
             {
@@ -48,20 +47,43 @@ namespace CRUD.Api.Controllers
         }
          
         /// <summary>
-        /// obtem todos os usuarios cadastrados
+        /// retorna todos os usuarios cadastrados
         /// </summary>
-        /// <param name="usuarioServices"></param>
-        /// <returns></returns>
+        /// <param name="usuarioServices">servico de usuario</param>
+        /// <returns>lista de usuarios</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetAllUsuario([FromServices] IUsuarioServices usuarioServices)
+        public ActionResult GetAll([FromServices] IUsuarioServices usuarioServices)
         {
             try
             {
-                var usuarios = usuarioServices.GetAllUsuario();
+                var usuarios = usuarioServices.GetAllUsuario().ToList();
 
                 return Ok(usuarios);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return Problem(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Salva ou atualiza um usuario
+        /// </summary>
+        /// <param name="usuarioServices">servico de usuario</param>
+        /// <param name="usuario">Dados do usuario</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult Post([FromServices] IUsuarioServices usuarioServices, [FromBody] Usuario usuario)
+        {
+            try
+            {
+                usuarioServices.SalvarUsuario(usuario);
+
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -93,28 +115,6 @@ namespace CRUD.Api.Controllers
             }
         }
 
-        /// <summary>
-        /// Salvar ou atualizar um usuario
-        /// </summary>
-        /// <param name="usuarioServices">servico de usuario</param>
-        /// <param name="usuario">Dados do usuario</param>
-        /// <returns></returns>
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Post([FromServices] IUsuarioServices usuarioServices, [FromBody] Usuario usuario)
-        {
-            try
-            {
-                usuarioServices.SalvarUsuario(usuario);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                return Problem(ex.Message);
-            }
-        }
 
         /// <summary>
         /// Deleta um usuario
@@ -122,9 +122,9 @@ namespace CRUD.Api.Controllers
         /// <param name="usuarioServices">Servico de usuario</param>
         /// <param name="id">codigo do usuario</param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Delete([FromServices] IUsuarioServices usuarioServices, [FromQuery] int id)
+        public ActionResult Delete([FromServices] IUsuarioServices usuarioServices, int id)
         {
             try
             {

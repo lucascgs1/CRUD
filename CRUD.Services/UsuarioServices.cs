@@ -28,10 +28,8 @@ namespace CRUD.Services
 
         public void SalvarUsuario(Usuario usuario)
         {
-            if (usuario.Id > 0)
-                UsuarioRepository.Update(usuario);
-            else
-                UsuarioRepository.Add(usuario);
+            UsuarioRepository.Save(usuario);
+
         }
 
         public void DeleteUsuarioById(int id)

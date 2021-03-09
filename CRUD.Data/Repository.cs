@@ -53,8 +53,10 @@ namespace CRUD.Data
         public virtual void Remove(int id)
         {
             DbSet.Remove(DbSet.Find(id));
-        }    
-        
+         
+            Db.SaveChanges();
+        }
+
         public int SaveChanges()
         {
             return Db.SaveChanges();
@@ -75,5 +77,7 @@ namespace CRUD.Data
         {
             Db.Database.CommitTransaction();
         }
+
+  
     }
 }
