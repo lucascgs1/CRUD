@@ -18,5 +18,22 @@ namespace CRUD.Data
         {
             _context = context;
         }
+
+        public IEnumerable<Endereco> GetAllEnderecosByUserId(int id)
+        {
+            return Db.Endereco.Where(e => e.UsuarioId == id).ToList();
+        }
+
+        public void Save(Endereco endereco)
+        {
+            if (endereco.Id > 0)
+            {
+                DbSet.Update(endereco);
+            }
+            else
+                DbSet.Add(endereco);
+
+            Db.SaveChanges();
+        }
     }
 }

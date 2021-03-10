@@ -5,8 +5,13 @@ using System.Threading.Tasks;
 
 namespace CRUD.Web.Models
 {
-    public class EnderecoViewModel
+    public class CadastroEnderecoViewModel
     {
+        public CadastroEnderecoViewModel(int usuarioId)
+        {
+            UsuarioId = usuarioId;
+        }
+
         public int Id { get; set; }
 
         public int UsuarioId { get; set; }

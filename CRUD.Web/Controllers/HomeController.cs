@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -50,11 +49,34 @@ namespace CRUD.Web.Controllers
                 if (usuario != null)
                     model = new CadastroViewModel()
                     {
-                        id = usuario.Id,
+                        Id = usuario.Id,
                         Email = usuario.Email,
                         Nome = usuario.Nome,
                         Telefone = usuario.Telefone
                     };
+            }
+
+            return View(model);
+        }
+
+
+        public ActionResult UsuarioDetalhe([FromServices] IUsuarioServices usuarioServices, int id)
+        {
+            UsuarioDetalheViewModel model = new UsuarioDetalheViewModel();
+
+            Usuario usuario = usuarioServices.GetUsuarioById(id);
+
+            if (usuario != null)
+            {
+                model = new UsuarioDetalheViewModel()
+                {
+                    Id = usuario.Id,
+                    Email = usuario.Email,
+                    Nome = usuario.Nome,
+                    Telefone = usuario.Telefone,
+                    LstEndereco = usuario.Enderecos,
+                    Endereco = new CadastroEnderecoViewModel(usuario.Id),
+                };
             }
 
             return View(model);
@@ -65,7 +87,7 @@ namespace CRUD.Web.Controllers
         {
             Usuario usuario = new Usuario()
             {
-                Id = model.id,
+                Id = model.Id,
                 Nome = model.Nome,
                 Email = model.Email,
                 Telefone = model.Telefone,
@@ -83,18 +105,18 @@ namespace CRUD.Web.Controllers
             return RedirectToAction("Index");
         }
 
-
+        /*
 
         public ActionResult CadastroEndereco([FromServices] IEnderecoServices enderecoServices, int id = 0)
         {
-            EnderecoViewModel model = new EnderecoViewModel();
+            CadastroEnderecoViewModel model = new CadastroEnderecoViewModel();
 
             if (id > 0)
             {
                 Endereco endereco = enderecoServices.GetEnderecoById(id);
 
                 if (endereco != null)
-                    model = new EnderecoViewModel()
+                    model = new CadastroEnderecoViewModel()
                     {
                         Id = model.Id,
                         UsuarioId = model.UsuarioId,
@@ -111,9 +133,9 @@ namespace CRUD.Web.Controllers
 
             return View(model);
         }
-
+        */
         [HttpPost]
-        public ActionResult SalvarEndereco([FromServices] IEnderecoServices enderecoServices, EnderecoViewModel model)
+        public ActionResult SalvarEndereco([FromServices] IEnderecoServices enderecoServices, CadastroEnderecoViewModel model = null, UsuarioDetalheViewModel teste = null)
         {
             Endereco endereco = new Endereco()
             {
@@ -131,7 +153,7 @@ namespace CRUD.Web.Controllers
 
             enderecoServices.SalvarEndereco(endereco);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("UsuarioDetalhe", new { id = model.UsuarioId });
         }
 
         public ActionResult DeleteEndereco([FromServices] IEnderecoServices enderecoServices, int id)

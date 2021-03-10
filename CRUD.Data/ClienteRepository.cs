@@ -10,28 +10,34 @@ using System.Collections.Generic;
 
 namespace CRUD.Data
 {
-    public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
+    public class ClienteRepository : Repository<Cliente>, IClienteRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public UsuarioRepository(ApplicationDbContext context) : base(context)
+        public ClienteRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public Usuario GetUsuarioById(int id)
+        public Cliente GetById(long id)
         {
-            return DbSet.AsNoTracking().Include(e => e.Enderecos).FirstOrDefault(x => x.Id == id);
+            return DbSet.Find(id);
         }
 
-        public void Save(Usuario usuario)
+        public void Remove(long id)
         {
-            if (usuario.Id > 0)
+            DbSet.Remove(DbSet.Find(id));
+        }
+
+
+        public void Save(Cliente cliente)
+        {
+            if (cliente.Id > 0)
             {
-                DbSet.Update(usuario);
+                DbSet.Update(cliente);
             }
             else
-                DbSet.Add(usuario);
+                DbSet.Add(cliente);
 
             Db.SaveChanges();
         }

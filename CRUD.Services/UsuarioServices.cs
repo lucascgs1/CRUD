@@ -23,15 +23,13 @@ namespace CRUD.Services
 
         public Usuario GetUsuarioById(int id)
         {
-            return UsuarioRepository.GetById(id);
+            return UsuarioRepository.GetUsuarioById(id);
         }
 
         public void SalvarUsuario(Usuario usuario)
         {
-            if (usuario.Id > 0)
-                UsuarioRepository.Update(usuario);
-            else
-                UsuarioRepository.Add(usuario);
+            UsuarioRepository.Save(usuario);
+
         }
 
         public void DeleteUsuarioById(int id)

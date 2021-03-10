@@ -21,7 +21,7 @@ namespace CRUD.Model
 
         [Required(ErrorMessage = "O campo {0} é Obrigatório")]
         [EmailAddress]
-        [DisplayName("E-mail")]
+        [Display(Name = "E-mail", Prompt = "Digite o {0}")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é Obrigatório")]

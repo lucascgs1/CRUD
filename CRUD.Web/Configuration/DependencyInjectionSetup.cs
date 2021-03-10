@@ -20,11 +20,13 @@ namespace CRUD.Web.Configuration
             #region repositorios
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
             #endregion
 
             #region servicos
             services.AddTransient<IUsuarioServices, UsuarioServices>();
             services.AddTransient<IEnderecoServices, EnderecoServices>();
+            services.AddTransient<IClienteServices, ClienteServices>();
             #endregion
         }
 

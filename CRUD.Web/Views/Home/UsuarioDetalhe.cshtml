@@ -1,0 +1,108 @@
+﻿@model CRUD.Web.Models.UsuarioDetalheViewModel
+
+@{
+    ViewData["Title"] = "Detalhe Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-9">
+            <h4>Usuario Detalhe</h4>
+        </div>
+        <div class="col-12 col-md-3">
+            @Html.ActionLink("Editar", "Cadastro", "Home", new { }, htmlAttributes: new { @class = "btn btn-primary btn-block" })
+        </div>
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+
+    <div class="box-dados">
+        <div class="row">
+            <div class="col-12">
+                @Html.LabelFor(model => model.Id, new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.Id, new { @class = "" })
+            </div> <div class="col-12">
+                @Html.LabelFor(model => model.Nome, new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.Nome, new { @class = "" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.Email, new { @class = "" })
+            </div>
+            <div class="col-12">
+                @Html.LabelFor(model => model.Telefone, new { @class = "control-label" }):
+                @Html.DisplayFor(model => model.Telefone, new { @class = "" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-3 offset-md-9 mb-2">
+            <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exampleModal">
+                Adicionar endereco
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var item in Model.LstEndereco)
+        {
+            if (Model.LstEndereco.IndexOf(item) % 2 == 0)
+            {
+                <a class="col-12 col-md-5 endereco mb-2">
+                    <div class="row titulo">
+                        <div class="col-6">
+                            @item.Titulo
+                        </div>
+                        <div class="col-6">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 logradouro">
+                            @item.Logradouro, @item.Numero @item.Complemento
+                        </div>
+                        <div class="col-12 bairro">
+                            @item.Bairro
+                        </div>
+                        <div class="col-12 cidade">
+                            @item.Cidade/@item.Estado
+                        </div>
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a class="col-12 col-md-5 endereco offset-md-1 mb-2">
+
+                    <div class="row titulo">
+                        <div class="col-6">
+                            @item.Titulo
+                        </div>
+                        <div class="col-6">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 logradouro">
+                            @item.Logradouro, @item.Numero @item.Complemento
+                        </div>
+                        <div class="col-12 bairro">
+                            @item.Bairro
+                        </div>
+                        <div class="col-12 cidade">
+                            @item.Cidade/@item.Estado
+                        </div>
+                    </div>
+                </a>
+            }
+        }
+    </div>
+
+
+    @await Html.PartialAsync("_CadastroEndereco.cshtml", Model)
+
+    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+</div>
