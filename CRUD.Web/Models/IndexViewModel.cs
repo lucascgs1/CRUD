@@ -13,6 +13,9 @@ namespace CRUD.Web.Models
             this.LstUsuario = new List<Usuario>();
         }
 
+        /// <summary>
+        /// Lista de usuarios
+        /// </summary>
         public IList<Usuario> LstUsuario { get; set; }
     }
 }

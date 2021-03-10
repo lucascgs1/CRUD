@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRUD.Web.Models
 {
-    public class CadastroViewModel
+    public class CadastroUsuarioViewModel
     {
         [Display(Name = "Id")]
         public int Id { get; set; }

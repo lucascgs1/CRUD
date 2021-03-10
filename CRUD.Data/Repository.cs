@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CRUD.Data
 {
@@ -27,7 +28,7 @@ namespace CRUD.Data
         {
             return DbSet.Find(id);
         }
-        
+
         public TEntity FindFirstBy(Expression<Func<TEntity, bool>> predicate)
         {
             return DbSet.FirstOrDefault(predicate);
@@ -53,8 +54,13 @@ namespace CRUD.Data
         public virtual void Remove(int id)
         {
             DbSet.Remove(DbSet.Find(id));
-         
+
             Db.SaveChanges();
+        }
+
+        public virtual void RemoveRange(IEnumerable<TEntity> obj)
+        {
+            DbSet.RemoveRange(obj);
         }
 
         public int SaveChanges()
@@ -78,6 +84,9 @@ namespace CRUD.Data
             Db.Database.CommitTransaction();
         }
 
-  
+        public void RollbackTransaction()
+        {
+            Db.Database.RollbackTransaction();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model CRUD.Web.Models.CadastroViewModel
+﻿@model CRUD.Web.Models.CadastroUsuarioViewModel
 
 @{
     ViewData["Title"] = "Cadastro";
@@ -8,7 +8,14 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-8 offset-md-2">
-            <h4>Cadastro</h4>
+            @if (Model.Id > 0)
+            {
+                <h4>Editar</h4>
+            }
+            else
+            {
+                <h4>Cadastro</h4>
+            }
             <hr />
         </div>
     </div>
@@ -16,8 +23,7 @@
     @using (Html.BeginForm("SalvarUsuario", "home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.HiddenFor(model => model.Id)
-
-        @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+        //dados usuario
         <div class="row">
             <div class="col-12 col-md-4 offset-md-2 form-group">
                 @Html.LabelFor(model => model.Nome, new { @class = "control-label" })
@@ -45,46 +51,9 @@
                 <button type="submit" class="btn btn-primary btn-block">Salvar</button>
             </div>
         </div>
-
-        @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
     }
+
 </div>
-
-<script>
-    //$(document).ready(function () {
-    //    $("#Nome").click(function () {
-    //        console.log($('#Nome'));
-    //    });
-    //});
-
-    window.onload = function () {
-    
-        $(".input-validation-error").change(function () {
-
-
-            console.log($('#Nome'));
-        });
-        
-        $("#Nome").change(function () {
-
-
-        });
-        console.log('Onload disparado');
-    }
-    //$(document).ready(function () {
-
-    //    $('#Nome');
-    //    console.log()
-
-    //    //$('#Nome').change(function () {
-    //    //    console.log("Nome");
-    //    //});
-
-    //});
-
-
-</script>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

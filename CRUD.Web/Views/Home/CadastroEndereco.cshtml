@@ -1,0 +1,100 @@
+﻿@model CRUD.Web.Models.CadastroEnderecoViewModel
+
+@{
+
+    if (Model.Id > 0)
+    {
+        ViewData["Title"] = "Cadastro Endereço";
+    }
+    else
+        ViewData["Title"] = "Editar Endereço";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-9">
+            @if (Model.Id > 0)
+            {
+                <h4>Editar</h4>
+            }
+            else
+            {
+                <h4>Cadastro</h4>
+            }
+        </div>
+        @if (Model.Id > 0)
+        {
+            <div class="col-12 col-md-3">
+                @Html.ActionLink("Excluir", "DeleteEndereco", "Home", new { id = Model.Id, usuarioId = Model.UsuarioId }, htmlAttributes: new { @class = "btn btn-danger btn-block" })
+            </div>
+        }
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+
+    @using (Html.BeginForm("SalvarEndereco", "home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.UsuarioId)
+        <div class="row">
+            <div class="col-12 col-md-6 form-group">
+                @Html.LabelFor(model => model.Titulo, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Titulo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-md-6 form-group">
+                @Html.LabelFor(model => model.Logradouro, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Logradouro, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Logradouro, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-md-6 form-group">
+                @Html.LabelFor(model => model.Numero, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Numero, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-md-6 form-group">
+                @Html.LabelFor(model => model.Complemento, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Complemento, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Complemento, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-md-6 form-group">
+                @Html.LabelFor(model => model.Bairro, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Bairro, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Bairro, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-md-6 form-group">
+                @Html.LabelFor(model => model.Cidade, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Cidade, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-md-6 form-group">
+                @Html.LabelFor(model => model.Estado, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Estado, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-md-6 form-group">
+                @Html.LabelFor(model => model.EnderecoPrincipal, new { @class = "control-label" }): &nbsp;
+                @Html.CheckBoxFor(model => model.EnderecoPrincipal, new { @class = "" })
+                @Html.ValidationMessageFor(model => model.EnderecoPrincipal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 col-md-2 offset-md-8 mb-1">
+                @Html.ActionLink("Voltar", "UsuarioDetalhe", new { id = Model.UsuarioId }, htmlAttributes: new { @class = "btn btn-secondary btn-block" })
+            </div>
+            <div class="col-12 col-md-2">
+                <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

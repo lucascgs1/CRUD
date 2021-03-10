@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace CRUD.Web.Models
 {
-    public class UsuarioDetalheViewModel : CadastroViewModel
+    public class UsuarioDetalheViewModel : CadastroUsuarioViewModel
     {
         public UsuarioDetalheViewModel()
         {
             this.LstEndereco = new List<Endereco>();
         }
 
-        public CadastroEnderecoViewModel Endereco { get; set; }
-
+        /// <summary>
+        /// lista de enderecos
+        /// </summary>
         public IList<Endereco> LstEndereco { get; set; }
     }
 }

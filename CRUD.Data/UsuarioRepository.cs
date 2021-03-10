@@ -19,11 +19,20 @@ namespace CRUD.Data
             _context = context;
         }
 
+        /// <summary>
+        /// obtem usuario pelo id
+        /// </summary>
+        /// <param name="id">codigo do usuario</param>
+        /// <returns></returns>
         public Usuario GetUsuarioById(int id)
         {
             return DbSet.AsNoTracking().Include(e => e.Enderecos).FirstOrDefault(x => x.Id == id);
         }
 
+        /// <summary>
+        /// salva ou atualiza um usuario
+        /// </summary>
+        /// <param name="usuario">dados do usuario</param>
         public void Save(Usuario usuario)
         {
             if (usuario.Id > 0)

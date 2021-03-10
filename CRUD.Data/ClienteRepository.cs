@@ -19,17 +19,29 @@ namespace CRUD.Data
             _context = context;
         }
 
+        /// <summary>
+        /// obtem um cliente pelo id
+        /// </summary>
+        /// <param name="id">codigo do cliente</param>
+        /// <returns></returns>
         public Cliente GetById(long id)
         {
             return DbSet.Find(id);
         }
 
+        /// <summary>
+        /// delta um cliente pelo id
+        /// </summary>
+        /// <param name="id">codigo do cliente</param>
         public void Remove(long id)
         {
             DbSet.Remove(DbSet.Find(id));
         }
 
-
+        /// <summary>
+        /// salva ou atualiza os dados de um cliente
+        /// </summary>
+        /// <param name="cliente">dados do cliente</param>
         public void Save(Cliente cliente)
         {
             if (cliente.Id > 0)

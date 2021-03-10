@@ -19,13 +19,36 @@ namespace CRUD.Data
             _context = context;
         }
 
-        public IEnumerable<Endereco> GetAllEnderecosByUserId(int id)
+        /// <summary>
+        /// Obtem todos os enderecos por usuario
+        /// </summary>
+        /// <param name="userId">Codigo do usuario</param>
+        /// <returns></returns>
+        public IEnumerable<Endereco> GetAllEnderecosByUserId(int userId)
         {
-            return Db.Endereco.Where(e => e.UsuarioId == id).ToList();
+            return Db.Endereco.Where(e => e.UsuarioId == userId).ToList();
         }
 
+        /// <summary>
+        /// Salvar ou atualizar um novo endereco
+        /// </summary>
+        /// <param name="endereco">dados do endereco</param>
         public void Save(Endereco endereco)
         {
+
+            BeginTransaction();
+            if (endereco.EnderecoPrincipal)
+            {
+                var lstEnderecos = Db.Endereco.Where(e => e.UsuarioId == endereco.UsuarioId);
+
+                foreach (var item in lstEnderecos)
+                {
+                    item.EnderecoPrincipal = false;
+                }
+
+                DbSet.UpdateRange(lstEnderecos);
+            }
+
             if (endereco.Id > 0)
             {
                 DbSet.Update(endereco);
@@ -33,7 +56,7 @@ namespace CRUD.Data
             else
                 DbSet.Add(endereco);
 
-            Db.SaveChanges();
+            CommitTransaction();
         }
     }
 }

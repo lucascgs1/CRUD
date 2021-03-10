@@ -16,21 +16,38 @@ namespace CRUD.Services
             ClienteRepository = clienteRepository;
         }
 
-        public IEnumerable<Cliente> GetAllCliente()
-        {
-            return ClienteRepository.GetAll();
-        }
-
+        /// <summary>
+        /// obtem cliente pelo id
+        /// </summary>
+        /// <param name="id">codigo do cliente</param>
+        /// <returns></returns>
         public Cliente GetClienteById(long id)
         {
             return ClienteRepository.GetById(id);
         }
 
+        /// <summary>
+        /// obtem todos os clientes
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Cliente> GetAllCliente()
+        {
+            return ClienteRepository.GetAll();
+        }
+
+        /// <summary>
+        /// salva ou atualiza um cliente
+        /// </summary>
+        /// <param name="cliente">dados do cliente</param>
         public void SalvarCliente(Cliente cliente)
         {
             ClienteRepository.Save(cliente);
         }
 
+        /// <summary>
+        /// delte um cliente pelo id
+        /// </summary>
+        /// <param name="id">codigo do cliente</param>
         public void DeleteClienteById(long id)
         {
             ClienteRepository.Remove(id);

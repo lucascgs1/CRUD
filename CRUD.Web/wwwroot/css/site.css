@@ -73,21 +73,9 @@ body {
     line-height: 60px; /* Vertically center the text there */
 }
 
-/*input-validation-error {
-    border: 1px solid red;
-}
-*/
-
-.form-control.input-validation-error, .input-validation-error .form-control:invalid {
-    border-color: #dc3545;
-    padding-right: calc(1.5em + .75rem);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center right calc(.375em + .1875rem);
-    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
-}
 
 /***  Customizado  ****/
+/*index*/
 .header-grid {
     background-color: #1b6ec2;
     color: #fff;
@@ -117,7 +105,7 @@ body {
         background-color: aliceblue !important;
     }
 
-
+/*    detalhes usuario*/
 .box-dados {
     background-color: #d0d0d0;
     border-radius: 8px;
@@ -125,13 +113,25 @@ body {
     margin-bottom: 1%;
 }
 
+.box-enderecos {
+    padding: 1% 1% 0.5% 1.5%;
+}
+
 .endereco {
-    background-color: #ddd;
+    background-color: #d0d0d0;
+    width: 100%;
     border-radius: 8px;
     white-space: nowrap;
     padding: 1% 2%;
     opacity: 0.7;
+    color: #000;
 }
+
+    .endereco:hover {
+        text-decoration: none !important;
+        color: #000;
+        opacity: 0.8;
+    }
 
     .endereco .titulo {
         font-size: 1.5em;
@@ -139,8 +139,23 @@ body {
         font-weight: 600;
     }
 
-    .endereco .titulo, .endereco .logradouro, .endereco .bairro, .endereco .cidade {
+    .endereco .titulo,
+    .endereco .logradouro,
+    .endereco .bairro,
+    .endereco .cidade {
         overflow: hidden;
         text-overflow: ellipsis;
         text-transform: capitalize;
     }
+
+
+@media (min-width: 768px) {
+    .endereco {
+        width: 49% !important;
+        margin-right: 1.75%;
+    }
+
+        .endereco.par {
+            margin-right: 0;
+        }
+}

@@ -41,6 +41,6 @@ namespace CRUD.Model
         public string Estado { get; set; }
 
         [Display(Name = "Endereço principal", Prompt = "Digite o {0}")]
-        public bool? EnderecoPrincipal { get; set; }
+        public bool EnderecoPrincipal { get; set; }
     }
 }
