@@ -23,10 +23,7 @@ namespace CRUD.Services
 
         public void SalvarEndereco(Endereco endereco)
         {
-            if (endereco.Id > 0)
-                EnderecoRepository.Update(endereco);
-            else
-                EnderecoRepository.Add(endereco);
+            EnderecoRepository.Save(endereco);
         }
 
         public IEnumerable<Endereco> GetAllEndereco()
@@ -34,10 +31,10 @@ namespace CRUD.Services
             return EnderecoRepository.GetAll();
         }
 
-        //public IEnumerable<Endereco> GetAllEnderecoByUserId(int userId)
-        //{
-        //    return EnderecoRepository.GetAllEnderecosByUserId(userId);
-        //}
+        public IEnumerable<Endereco> GetAllEnderecoByUserId(int userId)
+        {
+            return EnderecoRepository.GetAllEnderecosByUserId(userId);
+        }
 
         public void DeleteEnderecoById(int id)
         {

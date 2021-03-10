@@ -10,31 +10,31 @@ namespace CRUD.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClienteController : ControllerBase
+    public class EnderecoController : ControllerBase
     {
-        private readonly ILogger<ClienteController> _logger;
+        private readonly ILogger<EnderecoController> _logger;
 
-        public ClienteController(ILogger<ClienteController> logger)
+        public EnderecoController(ILogger<EnderecoController> logger)
         {
             _logger = logger;
         }
 
         /// <summary>
-        /// Obtem um cliente pelo codigo
+        /// Obtem um endereco pelo codigo
         /// </summary>
-        /// <param name="clienteServices">servico de cliente</param>
+        /// <param name="enderecoServices">servico de endereco</param>
         /// <param name="id">codigo</param>
-        /// <returns>retorna os dados do cliente</returns>
+        /// <returns>retorna os dados do endereco</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult Get([FromServices] IClienteServices clienteServices, long id)
+        public ActionResult Get([FromServices] IEnderecoServices enderecoServices, int id)
         {
             try
             {
-                var cliente = clienteServices.GetClienteById(id);
+                var endereco = enderecoServices.GetEnderecoById(id);
 
-                return Ok(cliente);
+                return Ok(endereco);
             }
             catch (Exception ex)
             {
@@ -44,20 +44,21 @@ namespace CRUD.Api.Controllers
         }
 
         /// <summary>
-        /// Obtem uma lista com todos os clientes cadastrados
+        /// Obtem uma lista com todos os endereco cadastrados
         /// </summary>
-        /// <param name="clienteServices">servico de cliente</param>
-        /// <returns>retorna uma lista de clientes</returns>
-        [HttpGet]
+        /// <param name="enderecoServices">servico de endereco</param>
+        /// <param name="userId">codigo do usuario</param>
+        /// <returns>retorna uma lista de enderecos</returns>
+        [HttpGet("listAllByUser/{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult GetAll([FromServices] IClienteServices clienteServices)
+        public ActionResult GetAllByUser([FromServices] IEnderecoServices enderecoServices, int userId)
         {
             try
             {
-                var cliente = clienteServices.GetAllCliente().ToList();
+                var endereco = enderecoServices.GetAllEnderecoByUserId(userId).ToList();
 
-                return Ok(cliente);
+                return Ok(endereco);
             }
             catch (Exception ex)
             {
@@ -67,18 +68,18 @@ namespace CRUD.Api.Controllers
         }
 
         /// <summary>
-        /// Salvar ou atualizar um cliente
+        /// Salvar ou atualizar um endereco
         /// </summary>
-        /// <param name="clienteServices">servico de cliente</param>
-        /// <param name="cliente">dados do cliente</param>
+        /// <param name="enderecoServices">servico de endereco</param>
+        /// <param name="endereco">dados do endereco</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Post([FromServices] IClienteServices clienteServices, [FromBody] Cliente cliente)
+        public ActionResult Post([FromServices] IEnderecoServices enderecoServices, [FromBody] Endereco endereco)
         {
             try
             {
-                clienteServices.SalvarCliente(cliente);
+                enderecoServices.SalvarEndereco(endereco);
 
                 return Ok();
             }
@@ -90,18 +91,18 @@ namespace CRUD.Api.Controllers
         }
 
         /// <summary>
-        /// Salvar novo cliente
+        /// Salvar novo endereco
         /// </summary>
-        /// <param name="clienteServices">servico de cliente</param>
-        /// <param name="cliente">dados do cliente</param>
+        /// <param name="enderecoServices">servico de cliente</param>
+        /// <param name="endereco">dados do endereco</param>
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Put([FromServices] IClienteServices clienteServices, [FromBody] Cliente cliente)
+        public ActionResult Put([FromServices] IEnderecoServices enderecoServices, [FromBody] Endereco endereco)
         {
             try
             {
-                clienteServices.SalvarCliente(cliente);
+                enderecoServices.SalvarEndereco(endereco);
 
                 return Ok();
             }
@@ -113,18 +114,18 @@ namespace CRUD.Api.Controllers
         }
 
         /// <summary>
-        /// excluir dados do cliente
+        /// excluir dados do endereco
         /// </summary>
-        /// <param name="clienteServices">servico do cliente</param>
-        /// <param name="id">codigo do cliente</param>
+        /// <param name="enderecoServices">servico de endereco</param>
+        /// <param name="id">codigo do endereco</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult Delete([FromServices] IClienteServices clienteServices, int id)
+        public ActionResult Delete([FromServices] IEnderecoServices enderecoServices, int id)
         {
             try
             {
-                clienteServices.DeleteClienteById(id);
+                enderecoServices.DeleteEnderecoById(id);
 
                 return Ok();
             }

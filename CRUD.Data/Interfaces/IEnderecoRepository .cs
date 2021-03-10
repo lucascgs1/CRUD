@@ -7,6 +7,8 @@ namespace CRUD.Data.Interfaces
 {
     public interface IEnderecoRepository : IRepository<Endereco>
     {
-        //IEnumerable<Endereco> GetAllEnderecosByUserId(int id);
+        IEnumerable<Endereco> GetAllEnderecosByUserId(int id);
+
+        void Save(Endereco endereco);
     }
 }

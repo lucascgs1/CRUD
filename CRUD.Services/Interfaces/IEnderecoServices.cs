@@ -13,7 +13,7 @@ namespace CRUD.Services.Interfaces
 
         IEnumerable<Endereco> GetAllEndereco();
 
-        //IEnumerable<Endereco> GetAllEnderecoByUserId(int userId);
+        IEnumerable<Endereco> GetAllEnderecoByUserId(int userId);
 
         void DeleteEnderecoById(int id);
     }
